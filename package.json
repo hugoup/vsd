@@ -1,8 +1,12 @@
 {
   "name": "vsd",
-  "displayName": "VS Dump Server",
-  "description": "Integrate var-dumper in vs code",
+  "displayName": "VSDump",
+  "description": "Integrate php var-dumper in vs code",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hugoup/vsd"
+  },
   "engines": {
     "vscode": "^1.99.0"
   },

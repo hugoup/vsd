@@ -1,5 +1,9 @@
 const vscode = acquireVsCodeApi();
 
+document.getElementById("clear-log-button").addEventListener("click", function () {
+  document.getElementById("dump-container").innerHTML = "";
+});
+
 window.addEventListener("message", (event) => {
   const message = event.data;
 
@@ -53,7 +57,31 @@ function renderKeyValueSection(title, obj) {
   `;
 }
 
+function renderBacktrace(backtrace) {
+  if (!Array.isArray(backtrace) || backtrace.length === 0) return "";
+
+  return `<ol class='backtrace-list'>${backtrace
+    .map(
+      (trace, index) => `
+		<li class='backtrace-item'>
+			<div><strong>#${index}</strong> ${trace.file || "N/A"} -> (${trace.line || "N/A"}) -> ${trace.class || "N/A"} -> ${trace.function || "N/A"}</div>
+		</li>`
+    )
+    .join("")}</ol>`;
+}
+
 function renderDump(dump) {
+  const renderSection = (title, content) =>
+    content
+      ? `
+    <div class="dump-section">
+      <details>
+        <summary>${title} (${content.length || 0})</summary>
+        <div class="section-content">${content}</div>
+      </details>
+    </div>`
+      : "";
+
   return `
     <div class="dump-wrapper">
       <div class="dump-header">
@@ -61,15 +89,11 @@ function renderDump(dump) {
         <span class="dump-id">🆔 ${dump.id}</span>
         <span class="dump-timestamp">📅 ${dump.timestamp}</span>
       </div>
+			<div class="dump-output">${dump.output}</div>
       <div class="dump-context">
-        ${renderKeyValueSection("Request", dump.request)}
-        ${renderKeyValueSection("Headers", dump.headers)}
-        ${renderKeyValueSection("Backtrace", dump.backtrace)}
+        ${renderSection("Request", renderKeyValueSection(dump.request))}
+        ${renderSection("Headers", renderKeyValueSection(dump.headers))}
+        ${renderSection("Backtrace", renderBacktrace(dump.backtrace))}
       </div>
-
-      <div class="dump-output">
-        ${dump.output}
-      </div>
-    </div>
-  `;
+    </div>`;
 }

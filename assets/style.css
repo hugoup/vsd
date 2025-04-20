@@ -6,6 +6,36 @@ body {
   margin: 0;
 }
 
+button {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: 1px solid var(--vscode-button-border);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.buttons {
+  text-align: right;
+  padding: 10px;
+  border-bottom: 1px solid var(--vscode-button-border);
+}
+
+button:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:focus {
+  outline: 2px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
+}
+
 .dump-wrapper {
   background: var(--vscode-panel-background);
   border: 1px solid var(--vscode-panel-border);

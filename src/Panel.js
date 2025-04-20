@@ -9,7 +9,7 @@ const panel = {
   init(extensionUri) {
     this.extensionUri = extensionUri;
 
-    this.panel = vscode.window.createWebviewPanel("php-dump-server", "Hump", vscode.ViewColumn.Two, {
+    this.panel = vscode.window.createWebviewPanel("vsd", "Vsd", vscode.ViewColumn.Two, {
       enableScripts: true,
     });
 
@@ -24,6 +24,9 @@ const panel = {
           <link href="${styleUri}" rel="stylesheet" />
         </head>
         <body>
+				<div class="buttons">
+					<button id="clear-log-button">Clear log</button>
+				</div>
           <div id="dump-container"></div>
          
           <script src="${dumpScriptUri}"></script>
