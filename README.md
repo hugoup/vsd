@@ -11,6 +11,11 @@ It uses a custom dump named vsd that brings along some extra context like header
 * **Easy to use**: The extension is easy to use and requires no additional configuration. Simply install the extension and start using it right away.
 * **Colortheme support**: The extension supports the current colortheme of your editor, making it easy to integrate into your workflow.
 
+---
+
+![Screenshot of VSD extension in action](images/screen1.png)
+
+---
 
 ## Running
 
