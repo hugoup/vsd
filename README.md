@@ -1,8 +1,8 @@
-# php-dump-server README
+# VSD README
 
 VSD is a Visual Studio Code extension that provides a simple way to view and manage PHP dump output.
 It relies on the symfony/var-dumper component to format the output and provides a user-friendly interface for viewing and managing the dump data right in your editor.
-it uses a custom dump named vsd that brings along some extra context like headers, request and response data, and the current file and line number where the dump was called.
+It uses a custom dump named vsd that brings along some extra context like headers, request and response data, and the current file and line number where the dump was called.
 
 ## Features
 
@@ -16,12 +16,11 @@ it uses a custom dump named vsd that brings along some extra context like header
 
 * Ctrl-shift-p and type `VSD: Start PHP-dump-server`
 
-\!\[feature X\]\(images/feature-x.png\)
 
 ## Requirements
 
 * PHP 7.1 or higher
-* Symfony VarDumper component install using composer `composer require symfony/var-dumper`
+* The VSD-php package, https://github.com/hugoup/vsd-php
 * if running inside a docker container, make sure to add "host.docker.internal:host-gateway" to your extra_hosts
 
 ## Known Issues
@@ -30,6 +29,14 @@ none.
 
 ## Release Notes
 
-### 0.0.1
+#### 0.0.3
+Reference to library 
 
+#### 0.0.2
+Add icon
+
+#### 0.0.1
 Initial release of vsd
+
+
+

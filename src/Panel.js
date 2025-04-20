@@ -5,6 +5,7 @@ const path = require("path");
 const panel = {
   panel: null,
   extensionUri: null,
+  server: null,
 
   init(extensionUri) {
     this.extensionUri = extensionUri;
@@ -24,9 +25,9 @@ const panel = {
           <link href="${styleUri}" rel="stylesheet" />
         </head>
         <body>
-				<div class="buttons">
-					<button id="clear-log-button">Clear log</button>
-				</div>
+        <div class="buttons">
+          <button id="clear-log-button">Clear log</button>
+        </div>
           <div id="dump-container"></div>
          
           <script src="${dumpScriptUri}"></script>

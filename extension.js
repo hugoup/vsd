@@ -11,8 +11,6 @@ function activate(context) {
       return;
     }
 
-    panel.init(context.extensionUri);
-
     server = net.createServer((socket) => {
       let data = "";
 
@@ -24,6 +22,16 @@ function activate(context) {
 
     server.listen(9913, () => {
       vscode.window.showInformationMessage("VSD started on port 9913");
+    });
+
+    panel.init(context.extensionUri);
+
+    panel.panel.onDidDispose(() => {
+      vscode.window.showInformationMessage("Closing VSD server");
+      if (server) {
+        server.close();
+        server = null;
+      }
     });
   });
 
