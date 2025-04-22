@@ -1,8 +1,10 @@
 const vscode = require("vscode");
 const net = require("net");
+const path = require("path");
+const fs = require("fs");
 
-const panel = require("./src/Panel");
 let server = null;
+let panel = null;
 
 function activate(context) {
   const startCommand = vscode.commands.registerCommand("vsd.startDumpServer", () => {
@@ -16,7 +18,8 @@ function activate(context) {
 
       socket.on("data", (chunk) => (data += chunk.toString()));
       socket.on("end", () => {
-        panel.add(data);
+        panel.webview.postMessage(data);
+        data = "";
       });
     });
 
@@ -24,9 +27,13 @@ function activate(context) {
       vscode.window.showInformationMessage("VSD started on port 9913");
     });
 
-    panel.init(context.extensionUri);
+    panel = vscode.window.createWebviewPanel("vsd", "Vsd", vscode.ViewColumn.Two, {
+      enableScripts: true,
+    });
 
-    panel.panel.onDidDispose(() => {
+    panel.webview.html = getWebviewContent(context, panel);
+
+    panel.onDidDispose(() => {
       vscode.window.showInformationMessage("Closing VSD server");
       if (server) {
         server.close();
@@ -41,6 +48,20 @@ function activate(context) {
       if (server) server.close();
     },
   });
+}
+
+function getWebviewContent(context, panel) {
+  const indexPath = path.join(context.extensionUri.fsPath, "media", "index.html");
+  let html = fs.readFileSync(indexPath, "utf8");
+
+  html = html.replace(/(src|href)="([^"]+)"/g, (_, attr, src) => {
+    const uri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionUri.fsPath, "media", src)));
+    return `${attr}="${uri}"`;
+  });
+
+  html = html.replace(/%CSP_SOURCE%/g, panel.webview.cspSource);
+
+  return html;
 }
 
 function deactivate() {

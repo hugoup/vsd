@@ -2,7 +2,7 @@
   "name": "vsd",
   "displayName": "VSDump",
   "description": "Integrate php var-dumper in vs code",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "stefanbruset",
   "icon": "icon.png",
   "repository": {
@@ -16,7 +16,7 @@
     "Other"
   ],
   "activationEvents": [],
-  "main": "./extension.js",
+  "main": "./src/extension.js",
   "contributes": {
     "commands": [
       {
@@ -28,7 +28,11 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "pnpm run lint",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "watch:vue": "cd src/web && pnpm run watch && cd -",
+    "build:vue": "cd src/web && pnpm run build && cd -",
+    "package": "pnpm run build:vue && vsce package",
+    "publish": "pnpm run build:vue && vsce publish"
   },
   "devDependencies": {
     "@types/vscode": "^1.99.0",

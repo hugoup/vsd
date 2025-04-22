@@ -1,4 +1,4 @@
-Sfdump =
+const Sfdump =
   window.Sfdump ||
   (function (doc) {
     doc.documentElement.classList.add("sf-js-enabled");
@@ -252,7 +252,7 @@ Sfdump =
       }
       if (doc.evaluate && Array.from && root.children.length > 1) {
         root.setAttribute("tabindex", 0);
-        SearchState = function () {
+        const SearchState = function () {
           this.nodes = [];
           this.idx = 0;
         };
@@ -408,3 +408,5 @@ Sfdump =
       } catch (e) {}
     };
   })(document);
+
+export default Sfdump;
